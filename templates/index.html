@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket App</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket Demo</h1>
+    <input type="text" id="nombre" placeholder="Escribe tu nombre">
+    <button onclick="enviarMensaje()">Enviar</button>
+    <p id="respuesta"></p>
+
+    <script>
+        const socket = io();
+
+        function enviarMensaje() {
+            const nombre = document.getElementById('nombre').value;
+            socket.emit('mensaje', { nombre: nombre });
+        }
+
+        socket.on('respuesta', function(data) {
+            document.getElementById('respuesta').textContent = data.mensaje;
+        });
+    </script>
+</body>
+</html>
